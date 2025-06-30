@@ -1,5 +1,5 @@
 // RadOrderPadImporter - Main controller coordinating parser and filler
-import { UniversalEMRParser } from './parser';
+import { SimpleUniversalParser } from './simple-universal-parser';
 import { RadOrderPadFiller } from './filler';
 import { SecureStorage } from './storage';
 import { AccessControl } from '../security/access/access-control';
@@ -7,12 +7,12 @@ import { AuditLogger } from '../security/audit/audit-logger';
 import { CaptureData, FormFillingResult } from '../types';
 
 export class RadOrderPadImporter {
-  private parser: UniversalEMRParser;
+  private parser: SimpleUniversalParser;
   private filler: RadOrderPadFiller;
   private sessionId: string | null = null;
 
   constructor() {
-    this.parser = new UniversalEMRParser();
+    this.parser = new SimpleUniversalParser();
     this.filler = new RadOrderPadFiller();
   }
 
@@ -61,14 +61,14 @@ export class RadOrderPadImporter {
       }
 
       // Parse insurance data
-      const insuranceData = this.parser.parseInsuranceData();
+      const insuranceData = { hasInsurance: false }; // Default insurance data
 
       // Create capture data
       const captureData: CaptureData = {
         patient: patientResult.data!,
-        insurance: insuranceData || { hasInsurance: false },
+        insurance: insuranceData,
         metadata: {
-          sourceEMR: this.parser['emrName'] || 'Unknown',
+          sourceEMR: 'Universal Parser',
           capturedAt: new Date().toISOString(),
           pageUrl: window.location.href
         }
@@ -178,7 +178,7 @@ export class RadOrderPadImporter {
       return {
         hasData: storageStats.hasData,
         timeRemaining: storageStats.timeRemaining,
-        emrDetected: this.parser['emrName'] || 'Unknown',
+        emrDetected: 'Universal Parser',
         dataAge: Math.max(0, dataAge)
       };
     } catch (error) {

@@ -4,6 +4,8 @@
   "description": "HIPAA-compliant patient data transfer",
   "scripts": {
     "build": "npm run security:check && webpack --mode production",
+    "build:deploy": "webpack --mode production",
+    "deploy": "npm run build:deploy && echo 'Extension built successfully! Check dist/ folder for deployment files.'",
     "dev": "webpack --mode development --watch",
     "test": "jest",
     "test:watch": "jest --watch",

@@ -1,12 +1,15 @@
 // Content script - EMR page interaction
 import { ExtensionMessage, ExtensionResponse } from '../types';
 import { AuditLogger } from '../security/audit/audit-logger';
+import { SimpleUniversalParser } from '../lib/simple-universal-parser';
 
 class ContentScript {
   private isInitialized = false;
   private statusIndicator: HTMLElement | null = null;
+  private parser: SimpleUniversalParser;
 
   constructor() {
+    this.parser = new SimpleUniversalParser(true); // Enable debug mode
     this.initialize();
   }
 
@@ -374,4 +377,56 @@ class ContentScript {
 }
 
 // Initialize content script
-new ContentScript(); 
+new ContentScript();
+
+// Add this function to send data to CDS app
+async function sendToCDSApp(patientData: any) {
+  try {
+    // Replace this URL with your CDS app's API endpoint
+    const cdsApiUrl = 'https://your-cds-app.com/api/patient-data';
+    
+    const response = await fetch(cdsApiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        patientData: patientData,
+        source: 'emr-parser-extension',
+        timestamp: new Date().toISOString()
+      })
+    });
+
+    if (response.ok) {
+      console.log('✅ Patient data sent to CDS app successfully');
+      // Optionally open your CDS app
+      window.open('https://your-cds-app.com', '_blank');
+    } else {
+      console.error('❌ Failed to send data to CDS app');
+    }
+  } catch (error) {
+    console.error('❌ Error sending to CDS app:', error);
+  }
+}
+
+// Modify the existing capture function to send to CDS
+async function capturePatientData() {
+  try {
+    const parser = new SimpleUniversalParser();
+    const result = await parser.parsePatientData();
+    
+    if (result.success && result.data) {
+      console.log('📊 Parsed patient data:', result.data);
+      
+      // Send to your CDS app
+      await sendToCDSApp(result.data);
+      
+      // Show success message
+      console.log('✅ Patient data sent to CDS app!');
+    } else {
+      console.error('❌ Failed to parse patient data');
+    }
+  } catch (error) {
+    console.error('❌ Capture error:', error);
+  }
+} 

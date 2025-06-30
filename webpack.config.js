@@ -21,7 +21,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
     clean: true
   },
   plugins: [
@@ -29,8 +29,7 @@ module.exports = {
       patterns: [
         { from: 'src/manifest.json', to: 'manifest.json' },
         { from: 'src/popup/popup.html', to: 'popup.html' },
-        { from: 'src/popup/styles.css', to: 'styles.css' },
-        { from: 'src/assets/icons', to: 'icons' }
+        { from: 'src/popup/styles.css', to: 'styles.css' }
       ]
     })
   ]

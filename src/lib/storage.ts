@@ -138,7 +138,7 @@ export class SecureStorage {
 
     this.cleanupTimer = setTimeout(async () => {
       await this.clearData();
-    }, this.EXPIRATION_TIME);
+    }, this.EXPIRATION_TIME) as unknown as number;
   }
 
   /**

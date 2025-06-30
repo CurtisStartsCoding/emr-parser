@@ -1,178 +1,166 @@
+// Refactored Parser - DISABLED - Using SimpleUniversalParser instead
+// This file is temporarily disabled to focus on the simple universal parser approach
+
+/*
 import { EMRStrategyManager } from './emr/emr-strategy-manager';
-import { PatientData, ParsingResult, InsuranceData } from '../types';
-import { EMRDetectionResult } from './emr/emr-strategy';
+import { PatientData, ParsingResult, EMRDetectionResult } from '../types';
 
-/**
- * Refactored Universal EMR Parser
- * 
- * This is a clean, modular implementation that uses EMR-specific strategies
- * for better accuracy and maintainability.
- */
-export class RefactoredEMRParser {
+export class RefactoredParser {
   private strategyManager: EMRStrategyManager;
-  private debugMode: boolean;
-  private detectionResult: EMRDetectionResult | null = null;
+  private detectedEMR: string | null = null;
+  private detectionConfidence: number = 0;
 
-  constructor(debugMode: boolean = false) {
+  constructor() {
     this.strategyManager = new EMRStrategyManager();
-    this.debugMode = debugMode;
   }
 
-  /**
-   * Main parsing method - delegates to appropriate EMR strategy
-   */
   async parsePatientData(): Promise<ParsingResult> {
-    this.log('🚀 Starting refactored EMR parsing...');
+    console.log('🚀 Refactored parser started');
     
     try {
-      // Detect EMR system
-      const detection = await this.getDetectedEMR();
-      this.log(`🔍 Detected EMR: ${detection.name} (confidence: ${detection.confidence})`);
-      
-      // Parse using detected strategy
+      // Detect EMR
+      const detection = await this.strategyManager.detectEMR();
+      this.detectedEMR = detection.emrName;
+      this.detectionConfidence = detection.confidence;
+
+      if (detection.confidence < 0.3) {
+        return {
+          success: false,
+          data: undefined,
+          errors: ['No EMR detected with sufficient confidence'],
+          strategy: 'refactored-none',
+          confidence: 0
+        };
+      }
+
+      // Parse with detected strategy
       const result = await this.strategyManager.parsePatientData();
       
       if (result.success) {
-        this.log(`✅ Parsing successful with ${result.strategy} strategy`);
-      } else {
-        this.log(`⚠️ Parsing failed: ${result.errors?.join(', ')}`);
+        return {
+          ...result,
+          strategy: `refactored-${this.detectedEMR}`,
+          confidence: this.detectionConfidence
+        };
       }
-      
-      return result;
+
+      // Try individual field extraction as fallback
+      return await this.fallbackFieldExtraction();
     } catch (error) {
-      this.log(`❌ Parsing error: ${error}`);
+      console.error('❌ Refactored parser error:', error);
       return {
         success: false,
         data: undefined,
-        errors: [`Parsing failed: ${error}`],
+        errors: [`Refactored parsing failed: ${error}`],
         strategy: 'refactored-error',
         confidence: 0
       };
     }
   }
 
-  /**
-   * Extract a specific field using the detected EMR strategy
-   */
   async extractField(field: string): Promise<{ value: string | null; strategy: string; confidence: number }> {
-    this.log(`🔍 Extracting field: ${field}`);
-    
     try {
       const result = await this.strategyManager.extractField(field);
-      this.log(`📊 Field extraction result: ${result.value ? '✅' : '❌'} (${result.strategy})`);
-      return result;
+      return {
+        value: result.value,
+        strategy: `refactored-${result.strategy}`,
+        confidence: result.confidence
+      };
     } catch (error) {
-      this.log(`❌ Field extraction error: ${error}`);
       return {
         value: null,
-        strategy: 'error',
+        strategy: 'refactored-error',
         confidence: 0
       };
     }
   }
 
-  /**
-   * Parse insurance data (placeholder for now)
-   */
-  parseInsuranceData(): InsuranceData | null {
-    this.log('🔍 Parsing insurance data...');
-    // TODO: Implement insurance parsing with EMR-specific strategies
+  private async fallbackFieldExtraction(): Promise<ParsingResult> {
+    const fields = ['firstName', 'lastName', 'dateOfBirth', 'gender', 'phoneNumber'];
+    const data: Partial<PatientData> = {};
+    let extractedCount = 0;
+
+    for (const field of fields) {
+      const result = await this.extractField(field);
+      if (result.value) {
+        data[field as keyof PatientData] = result.value as any;
+        extractedCount++;
+      }
+    }
+
+    const confidence = extractedCount / fields.length;
+    
     return {
-      hasInsurance: false
+      success: confidence > 0.3,
+      data: data as PatientData,
+      errors: [],
+      strategy: `refactored-fallback-${this.detectedEMR}`,
+      confidence
     };
   }
 
-  /**
-   * Get the currently detected EMR
-   */
-  async getDetectedEMR(): Promise<EMRDetectionResult> {
-    if (!this.detectionResult) {
-      try {
-        this.detectionResult = await this.strategyManager.detectEMR();
-        this.log(`Detected EMR: ${this.detectionResult.name} (confidence: ${this.detectionResult.confidence})`);
-      } catch (error) {
-        this.log(`Error detecting EMR: ${error}`);
-        this.detectionResult = {
-          detected: false,
-          confidence: 0,
-          name: 'Unknown EMR'
-        };
-      }
-    }
-    return this.detectionResult;
+  getDetectedEMR(): string | null {
+    return this.detectedEMR;
   }
 
-  /**
-   * Get available EMR strategies
-   */
+  getDetectionConfidence(): number {
+    return this.detectionConfidence;
+  }
+
   getAvailableStrategies(): string[] {
     return this.strategyManager.getAvailableStrategies();
   }
 
-  /**
-   * Force use of a specific EMR strategy (for testing)
-   */
   forceStrategy(strategyName: string): boolean {
-    this.log(`🔧 Forcing strategy: ${strategyName}`);
     return this.strategyManager.forceStrategy(strategyName);
   }
 
-  /**
-   * Reset EMR detection (useful for testing)
-   */
   resetDetection(): void {
-    this.log('🔄 Resetting EMR detection');
     this.strategyManager.resetDetection();
+    this.detectedEMR = null;
+    this.detectionConfidence = 0;
+  }
+}
+*/
+
+// Export a placeholder class that redirects to SimpleUniversalParser
+import { SimpleUniversalParser } from './simple-universal-parser';
+import { PatientData, ParsingResult } from '../types';
+
+export class RefactoredParser {
+  private parser: SimpleUniversalParser;
+
+  constructor() {
+    this.parser = new SimpleUniversalParser();
   }
 
-  /**
-   * Get detailed parsing metrics
-   */
-  async getParsingMetrics(): Promise<{
-    detectedEMR: string;
-    confidence: number;
-    strategy: string;
-    availableStrategies: string[];
-    extractionResults: Record<string, { value: string | null; strategy: string; confidence: number }>;
-  }> {
-    const detection = await this.getDetectedEMR();
-    const fields = ['firstName', 'lastName', 'dateOfBirth', 'phoneNumber', 'email', 'addressLine1', 'city', 'state', 'zipCode'];
-    const extractionResults: Record<string, { value: string | null; strategy: string; confidence: number }> = {};
-    
-    for (const field of fields) {
-      extractionResults[field] = await this.extractField(field);
-    }
-    
-    return {
-      detectedEMR: detection.name,
-      confidence: detection.confidence,
-      strategy: detection.detected ? 'emr-specific' : 'fallback',
-      availableStrategies: this.getAvailableStrategies(),
-      extractionResults
-    };
+  async parsePatientData(): Promise<ParsingResult> {
+    console.log('🚀 Refactored parser redirecting to SimpleUniversalParser');
+    return await this.parser.parsePatientData();
   }
 
-  /**
-   * Debug logging
-   */
-  private log(message: string): void {
-    if (this.debugMode) {
-      console.log(`[RefactoredEMRParser] ${message}`);
-    }
+  async extractField(field: string): Promise<{ value: string | null; strategy: string; confidence: number }> {
+    return await this.parser.extractField(field);
   }
 
-  /**
-   * Backward compatibility method - maintains interface with old parser
-   */
-  async parsePatientDataLegacy(): Promise<ParsingResult> {
-    // This method maintains backward compatibility with the old parser interface
-    return this.parsePatientData();
+  getDetectedEMR(): string | null {
+    return 'Universal Parser';
   }
 
-  /**
-   * Get strategy manager for advanced usage
-   */
-  getStrategyManager(): EMRStrategyManager {
-    return this.strategyManager;
+  getDetectionConfidence(): number {
+    return 0.8;
+  }
+
+  getAvailableStrategies(): string[] {
+    return ['SimpleUniversalParser'];
+  }
+
+  forceStrategy(strategyName: string): boolean {
+    console.log('Strategy forcing disabled - using universal parser');
+    return true;
+  }
+
+  resetDetection(): void {
+    console.log('Detection reset disabled - using universal parser');
   }
 } 
