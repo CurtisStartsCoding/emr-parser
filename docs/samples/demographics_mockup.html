@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demographics - Epic MyChart</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f0;
+            font-size: 12px;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-tabs {
+            background-color: #66bb6a;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-tab {
+            background-color: #66bb6a;
+            color: white;
+            padding: 8px 15px;
+            border: 1px solid #4caf50;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        
+        .nav-tab.active {
+            background-color: #f5f5f0;
+            color: black;
+        }
+        
+        .nav-tab:hover {
+            background-color: #5cb65c;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+        
+        .sidebar {
+            width: 200px;
+            background-color: #e8f5e8;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+        }
+        
+        .patient-info {
+            background-color: #81c784;
+            color: black;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        
+        .patient-name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .patient-details {
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-section h4 {
+            background-color: #ffeb3b;
+            margin: 0;
+            padding: 5px;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+        
+        .sidebar-item {
+            padding: 3px 5px;
+            font-size: 11px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 15px;
+            background-color: white;
+            overflow-y: auto;
+        }
+        
+        .content-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #81c784, #a5d6a7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .patient-main-info {
+            flex: 1;
+        }
+        
+        .patient-main-info h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #2e7d32;
+        }
+        
+        .patient-main-info .details {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .form-section {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .form-section-header {
+            background: linear-gradient(to right, #e8f5e8, #f0f8f0);
+            padding: 8px 15px;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            color: #2e7d32;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .form-section-content {
+            padding: 15px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-field label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+            font-size: 11px;
+        }
+        
+        .form-field input,
+        .form-field select {
+            border: 1px solid #ccc;
+            padding: 5px;
+            font-size: 11px;
+            background-color: white;
+        }
+        
+        .form-field.readonly input {
+            background-color: #f9f9f9;
+            color: #666;
+        }
+        
+        .alert-box {
+            background-color: #fff9c4;
+            border: 1px solid #f57c00;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-icon {
+            color: #f57c00;
+            font-weight: bold;
+        }
+        
+        .preferences-link {
+            color: #1976d2;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 11px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+        
+        .btn:hover {
+            background-color: #eeeeee;
+        }
+        
+        .edit-icon {
+            color: #1976d2;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="background-color: #9c27b0; color: white; padding: 5px 10px; border-radius: 3px; font-weight: bold;">SA</div>
+        <span>Demographics</span>
+        <div style="margin-left: auto; display: flex; gap: 5px;">
+            <span style="font-size: 10px;">🔒</span>
+            <span style="font-size: 10px;">❓</span>
+            <span style="font-size: 10px;">✕</span>
+        </div>
+    </div>
+    
+    <div class="nav-tabs">
+        <div class="nav-tab">SnapShot</div>
+        <div class="nav-tab">Chart</div>
+        <div class="nav-tab active">Demographics</div>
+        <div class="nav-tab">Results</div>
+        <div class="nav-tab">Letters</div>
+        <div class="nav-tab">Dispo</div>
+        <div class="nav-tab">Manage Orders</div>
+        <div class="nav-tab">Trace</div>
+        <div class="nav-tab">Worklist</div>
+        <div class="nav-tab">ED Navigation</div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="patient-info">
+                <div class="patient-name">Asap, Steph</div>
+                <div class="patient-details">
+                    Female, 35 y.o., 2/1/1990<br>
+                    Addr: [Address]<br>
+                    CSN: 500710#4236<br>
+                    Total Time: ⏱ 7:52:51<br>
+                    Code: Prior<br>
+                    Adv Directive: POL ST: No, No<br>
+                    LOC: Not filed<br>
+                    Primary Cov: None<br>
+                    UCLA PCP: None
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>PDMP Needs Review</h4>
+                <div class="sidebar-item">Infections: None</div>
+                <div class="sidebar-item">Isolation: None</div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-item">🏥 Emergency, Attending</div>
+                <div class="sidebar-item">Physician: MD</div>
+                <div class="sidebar-item">▲ Attending</div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>Allergies: No Known Allergies</h4>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>CHIEF COMPLAINT</h4>
+                <div class="sidebar-item">No chief complaint on file</div>
+                <div class="sidebar-item">BP: Temp: BMI: Heart Rate</div>
+                <div class="sidebar-item">Resp: SpO2: O2 Device</div>
+                <div class="sidebar-item">Weight: Baseline Weight</div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>RESULTS</h4>
+                <div class="sidebar-item">No results</div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>MED STATUS</h4>
+                <div class="sidebar-item">None</div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>ED COURSE ➕</h4>
+            </div>
+            
+            <div class="sidebar-section">
+                <h4>DISPOSITION</h4>
+                <div class="sidebar-item">Discharge</div>
+                <div class="sidebar-item">📋 CLINICAL IMPRESSION ✏️</div>
+                <div class="sidebar-item">🔄 Syncope and collapse</div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="content-header">
+                <div class="user-avatar">👤</div>
+                <div class="patient-main-info">
+                    <h2>Steph Asap</h2>
+                    <div class="details">
+                        <strong>SSN:</strong> ---<br>
+                        <strong>Date of Birth:</strong> 2/1/1990
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-header">
+                    Communication
+                    <span class="preferences-link">🔗 Comm. Preferences</span>
+                </div>
+                <div class="form-section-content">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>Address</label>
+                            <input type="text" value="---" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Phone</label>
+                            <input type="text" value="---" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Email</label>
+                            <input type="text" value="---" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-header">
+                    Additional
+                </div>
+                <div class="form-section-content">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>Language</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Marital Status</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Religion</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>Interpreter Needed</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Actual DOB</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Preferred Pronoun</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>Preferred Form of Address</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Ethnicity</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label>Race</label>
+                            <input type="text" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="form-field" style="width: 100%;">
+                        <label>Permanent Comments</label>
+                        <input type="text" value="---" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-header">
+                    Employer and Identification <span class="edit-icon">✏️</span>
+                </div>
+                <div class="form-section-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4>Employer Information</h4>
+                            <div class="form-field">
+                                <label>Employment Status</label>
+                                <input type="text" value="---" readonly>
+                            </div>
+                            <div class="form-field">
+                                <label>Address</label>
+                                <input type="text" value="" readonly>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Patient Identification</h4>
+                            <div class="form-field">
+                                <label>Patient Status</label>
+                                <input type="text" value

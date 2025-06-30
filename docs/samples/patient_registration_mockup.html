@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            font-size: 12px;
+        }
+        
+        .container {
+            background-color: white;
+            border: 2px solid #333;
+            max-width: 1000px;
+        }
+        
+        .header-section {
+            background-color: #c8e6c9;
+            padding: 8px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .header-label {
+            background-color: #a5d6a7;
+            padding: 2px 5px;
+            font-weight: bold;
+            min-width: 120px;
+        }
+        
+        .header-value {
+            background-color: white;
+            padding: 2px 5px;
+            border: 1px solid #666;
+            flex-grow: 1;
+            margin-left: 5px;
+        }
+        
+        .section-header {
+            background-color: #a5d6a7;
+            padding: 5px;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            font-size: 14px;
+        }
+        
+        .section-content {
+            padding: 10px;
+            background-color: #e8f5e8;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        
+        .form-label {
+            background-color: #a5d6a7;
+            padding: 3px 8px;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: right;
+        }
+        
+        .form-value {
+            background-color: white;
+            padding: 3px 8px;
+            border: 1px solid #666;
+            margin-left: 5px;
+            min-width: 150px;
+        }
+        
+        .patient-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .contact-column {
+            text-align: center;
+        }
+        
+        .contact-header {
+            background-color: #a5d6a7;
+            padding: 3px;
+            font-weight: bold;
+            border: 1px solid #333;
+        }
+        
+        .contact-value {
+            background-color: white;
+            padding: 5px;
+            border: 1px solid #666;
+            min-height: 60px;
+        }
+        
+        .coverage-section {
+            margin-top: 10px;
+        }
+        
+        .insurance-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px 1fr;
+            gap: 5px;
+            margin-bottom: 5px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <div class="header-row">
+                <span class="header-label">Encounter Date:</span>
+                <span class="header-value">4/17/2025</span>
+                <span class="header-label">Observation</span>
+            </div>
+            <div class="header-row">
+                <span class="header-label">Hospital Account:</span>
+                <span class="header-value">[REDACTED]</span>
+            </div>
+            <div class="header-row">
+                <span class="header-label">MRN:</span>
+                <span class="header-value">[REDACTED]</span>
+            </div>
+            <div class="header-row">
+                <span class="header-label">Contact Serial #:</span>
+                <span class="header-value">[REDACTED]</span>
+            </div>
+            <div class="header-row">
+                <span class="header-label">SSN:</span>
+                <span class="header-value">xxx-xx-1223</span>
+            </div>
+        </div>
+
+        <!-- Provider Info Section -->
+        <div class="section-header">PROVIDER INFO</div>
+        <div class="section-content">
+            <div class="form-row">
+                <span class="form-label">Admitting Provider:</span>
+                <span class="form-value">[REDACTED]</span>
+                <span class="form-label">PCP:</span>
+                <span class="form-value">[REDACTED]</span>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Ordering Provider:</span>
+                <span class="form-value">[REDACTED]</span>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Adm Diagnosis:</span>
+                <span class="form-value">Flu Like Symptoms</span>
+                <span class="form-label">Adm Procedure:</span>
+            </div>
+        </div>
+
+        <!-- Patient Section -->
+        <div class="section-header">PATIENT</div>
+        <div class="section-content">
+            <div class="patient-section">
+                <div>
+                    <div class="form-row">
+                        <span class="form-label">Name:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Address:</span>
+                        <span class="form-value">LEHIGH ACRES, FL 33936</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Email:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Primary Language:</span>
+                        <span class="form-value">English</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Temp Address:</span>
+                        <span class="form-value"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-row">
+                        <span class="form-label">Info Release:</span>
+                        <span class="form-value">INFO REL OK</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">DOB:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Sex:</span>
+                        <span class="form-value">Female</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Primary Phone:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Alternate Phone:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Race:</span>
+                        <span class="form-value">Black</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Religion:</span>
+                        <span class="form-value">Methodist</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Date From/To:</span>
+                        <span class="form-value"></span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Temp Phone:</span>
+                        <span class="form-value">000-000-0000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Contacts -->
+            <div class="form-row">
+                <span class="form-label">EMERGENCY CONTACTS</span>
+            </div>
+            <div class="emergency-contacts">
+                <div class="contact-column">
+                    <div class="contact-header">Rel to Patient</div>
+                    <div class="contact-value">[REDACTED]</div>
+                </div>
+                <div class="contact-column">
+                    <div class="contact-header">Home Phone</div>
+                    <div class="contact-value">[REDACTED]</div>
+                </div>
+                <div class="contact-column">
+                    <div class="contact-header">Cell Phone</div>
+                    <div class="contact-value">[REDACTED]</div>
+                </div>
+                <div class="contact-column">
+                    <div class="contact-header">Work Phone</div>
+                    <div class="contact-value">[REDACTED]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guarantor Section -->
+        <div class="section-header">GUARANTOR</div>
+        <div class="section-content">
+            <div class="patient-section">
+                <div>
+                    <div class="form-row">
+                        <span class="form-label">Guarantor:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Address:</span>
+                        <span class="form-value">LEHIGH ACRES, FL 33936</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Employer:</span>
+                        <span class="form-value">NOT EMPLOYED</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Phone:</span>
+                        <span class="form-value"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-row">
+                        <span class="form-label">Relation to Patient:</span>
+                        <span class="form-value">Self</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">DOB:</span>
+                        <span class="form-value">[REDACTED]</span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Home:</span>
+                        <span class="form-value"></span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Work:</span>
+                        <span class="form-value"></span>
+                    </div>
+                    <div class="form-row">
+                        <span class="form-label">Status:</span>
+                        <span class="form-value">Disabled</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coverage Section -->
+        <div class="section-header">COVERAGE</div>
+        <div class="section-content">
+            <div class="coverage-section">
+                <div style="background-color: #a5d6a7; padding: 5px; font-weight: bold;">PRIMARY INSURANCE</div>
+                <div class="insurance-row">
+                    <span class="form-label">Insurance Company:</span>
+                    <span class="form-value">UNITED HEALTH MCR-H* / UHC MEDICARE REPLACEMENT</span>
+                    <span class="form-label">Ins Phone:</span>
+                    <span class="form-value">[REDACTED]</span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Address:</span>
+                    <span class="form-value">PO BOX 31362 SALT LAKE CITY, UT 84131-0362</span>
+                    <span class="form-label">Subscriber ID:</span>
+                    <span class="form-value">[REDACTED]</span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Group Number/Name:</span>
+                    <span class="form-value">[REDACTED]</span>
+                    <span class="form-label">Authorization #:</span>
+                    <span class="form-value">[REDACTED]</span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Subscriber Name:</span>
+                    <span class="form-value">[REDACTED]</span>
+                    <span class="form-label">Subscriber DOB:</span>
+                    <span class="form-value">[REDACTED]</span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Subscriber Employer:</span>
+                    <span class="form-value">DISABLED</span>
+                    <span class="form-label">Rel to Subscriber:</span>
+                    <span class="form-value">Self</span>
+                </div>
+
+                <div style="background-color: #a5d6a7; padding: 5px; font-weight: bold; margin-top: 15px;">SECONDARY INSURANCE</div>
+                <div class="insurance-row">
+                    <span class="form-label">Insurance Company:</span>
+                    <span class="form-value">/ N/A</span>
+                    <span class="form-label">Ins Phone:</span>
+                    <span class="form-value"></span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Address:</span>
+                    <span class="form-value"></span>
+                    <span class="form-label">Subscriber ID:</span>
+                    <span class="form-value"></span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Group Number/Name:</span>
+                    <span class="form-value">/</span>
+                    <span class="form-label">Authorization #:</span>
+                    <span class="form-value"></span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Subscriber Name:</span>
+                    <span class="form-value"></span>
+                    <span class="form-label">Subscriber DOB:</span>
+                    <span class="form-value"></span>
+                </div>
+                <div class="insurance-row">
+                    <span class="form-label">Subscriber Employer:</span>
+                    <span class="form-value"></span>
+                    <span class="form-label">Rel to Subscriber:</span>
+                    <span class="form-value">N/A</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

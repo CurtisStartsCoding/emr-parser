@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadOrderPad Extension</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="../assets/icons/icon-48.png" alt="RadOrderPad" class="logo-img">
+                <h1 class="title">RadOrderPad</h1>
+            </div>
+            <div class="version">v1.0.0</div>
+        </header>
+
+        <main class="main">
+            <!-- Status Section -->
+            <section class="status-section">
+                <div class="status-indicator" id="statusIndicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span class="status-text" id="statusText">Checking status...</span>
+                </div>
+                <div class="status-details" id="statusDetails">
+                    <div class="detail-item">
+                        <span class="label">EMR:</span>
+                        <span class="value" id="emrDetected">Unknown</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Data:</span>
+                        <span class="value" id="dataStatus">No data</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Expires:</span>
+                        <span class="value" id="expiresIn">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="actions-section">
+                <button class="btn btn-primary" id="captureBtn" disabled>
+                    <span class="btn-icon">📋</span>
+                    Capture Patient Data
+                </button>
+                
+                <button class="btn btn-secondary" id="fillBtn" disabled>
+                    <span class="btn-icon">📝</span>
+                    Fill RadOrderPad Forms
+                </button>
+                
+                <button class="btn btn-danger" id="clearBtn" disabled>
+                    <span class="btn-icon">🗑️</span>
+                    Clear Data
+                </button>
+            </section>
+
+            <!-- Keyboard Shortcuts -->
+            <section class="shortcuts-section">
+                <h3 class="section-title">Keyboard Shortcuts</h3>
+                <div class="shortcuts-list">
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>
+                        <span class="shortcut-desc">Capture data</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>
+                        <span class="shortcut-desc">Fill forms</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Information -->
+            <section class="info-section">
+                <div class="info-item">
+                    <span class="info-icon">🔒</span>
+                    <span class="info-text">HIPAA & SOC2 Compliant</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">⏰</span>
+                    <span class="info-text">Data auto-deletes in 5 minutes</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🔐</span>
+                    <span class="info-text">AES-256 encrypted</span>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <button class="btn btn-link" id="settingsBtn">Settings</button>
+            <button class="btn btn-link" id="helpBtn">Help</button>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <span class="loading-text">Processing...</span>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal-overlay" id="errorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Error</h3>
+                <button class="modal-close" id="errorModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage">An error occurred.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="errorModalOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html> 

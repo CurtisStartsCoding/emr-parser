@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic MyChart - Patient Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+        .MyChartLogo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .patient-info {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .patient-info h2 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            width: 150px;
+            color: #666;
+        }
+        .info-value {
+            flex: 1;
+        }
+        .insurance-section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .insurance-section h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        #radorderpad-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ccc;
+            border: 2px solid #999;
+            transition: all 0.3s ease;
+        }
+        #radorderpad-status.has-data {
+            background-color: #33cc33;
+            border-color: #229922;
+        }
+        #radorderpad-status.loading {
+            background-color: #ffcc00;
+            border-color: #e6b800;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="MyChartLogo">Epic MyChart</div>
+    </div>
+    
+    <div class="patient-info">
+        <h2>Patient Information</h2>
+        <div class="info-row">
+            <div class="info-label">First Name:</div>
+            <div class="info-value">John</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Last Name:</div>
+            <div class="info-value">Doe</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Middle Name:</div>
+            <div class="info-value">Michael</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Date of Birth:</div>
+            <div class="info-value">01/15/1980</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Gender:</div>
+            <div class="info-value">Male</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Phone Number:</div>
+            <div class="info-value">(555) 123-4567</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Email:</div>
+            <div class="info-value">john.doe@example.com</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Address Line 1:</div>
+            <div class="info-value">123 Main Street</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Address Line 2:</div>
+            <div class="info-value">Apt 4B</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">City:</div>
+            <div class="info-value">New York</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">State:</div>
+            <div class="info-value">NY</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Zip Code:</div>
+            <div class="info-value">10001</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">MRN:</div>
+            <div class="info-value">MRN123456</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">SSN:</div>
+            <div class="info-value">123-45-6789</div>
+        </div>
+    </div>
+    
+    <div class="insurance-section">
+        <h3>Insurance Information</h3>
+        <div class="info-row">
+            <div class="info-label">Primary Insurance:</div>
+            <div class="info-value">Blue Cross Blue Shield</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Policy Number:</div>
+            <div class="info-value">POL123456</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Group Number:</div>
+            <div class="info-value">GRP789012</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Policy Holder:</div>
+            <div class="info-value">John Doe</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Relationship:</div>
+            <div class="info-value">Self</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Secondary Insurance:</div>
+            <div class="info-value">Aetna</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Secondary Policy:</div>
+            <div class="info-value">SEC123456</div>
+        </div>
+    </div>
+    
+    <!-- RadOrderPad Extension Status Indicator -->
+    <div id="radorderpad-status" title="RadOrderPad Extension Status"></div>
+    
+    <script>
+        // Simulate extension interaction
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey) {
+                if (event.key === 'C') {
+                    // Simulate capture
+                    const status = document.getElementById('radorderpad-status');
+                    status.classList.add('loading');
+                    setTimeout(() => {
+                        status.classList.remove('loading');
+                        status.classList.add('has-data');
+                    }, 1000);
+                } else if (event.key === 'F') {
+                    // Simulate fill
+                    console.log('Fill command triggered');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
