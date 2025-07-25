@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crazy EMR Mockup</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .section { margin-bottom: 30px; }
+    .hidden { display: none; }
+    .fancy-label { color: #0077cc; font-weight: bold; }
+    .random { background: #f9f9f9; padding: 5px; margin: 2px 0; }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border: 1px solid #ccc; padding: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Super Messy EMR Patient Page</h1>
+
+  <!-- Section 1: Table with mixed order and extra fields -->
+  <div class="section">
+    <table>
+      <tr><th>Random Field</th><td>Not Needed</td></tr>
+      <tr><th>First Name</th><td>  Alice   </td></tr>
+      <tr><th>Last Name</th><td>Johnson</td></tr>
+      <tr><th>Middle Name</th><td>Marie</td></tr>
+      <tr><th>Unrelated</th><td>Ignore Me</td></tr>
+      <tr><th>Date of Birth</th><td>  01-02-1980 </td></tr>
+      <tr><th>Gender</th><td>female</td></tr>
+      <tr><th>Phone Number</th><td>555.987.6543</td></tr>
+      <tr><th>Email</th><td>alice.johnson@email.com</td></tr>
+      <tr><th>Address</th><td>789 Wacky Blvd,   Springfield, IL 62704</td></tr>
+      <tr><th>MRN</th><td>MRN000111222</td></tr>
+      <tr><th>SSN</th><td>987-65-4321</td></tr>
+      <tr><th>Insurance</th><td>UnitedHealth Group</td></tr>
+      <tr><th>Policy Number</th><td>POL-123456</td></tr>
+      <tr><th>Group Number</th><td>GRP-7890</td></tr>
+      <tr><th>Relationship</th><td>Self</td></tr>
+      <tr><th>Extra Field</th><td>Should be ignored</td></tr>
+    </table>
+  </div>
+
+  <!-- Section 2: Divs and spans, some fields missing, weird order -->
+  <div class="section">
+    <div class="random"><span class="fancy-label">City:</span> Springfield</div>
+    <div class="random"><span class="fancy-label">State</span>: IL</div>
+    <div class="random"><span class="fancy-label">ZIP Code</span>: 62704</div>
+    <div class="random"><span class="fancy-label">Address Line 2</span>: Apt 5C</div>
+    <div class="random"><span class="fancy-label">Phone</span>: (555) 987-6543</div>
+    <div class="random"><span class="fancy-label">EMAIL</span>: alice.johnson@email.com</div>
+    <div class="random"><span class="fancy-label">SSN</span>: 987-65-4321</div>
+    <div class="random"><span class="fancy-label">MRN</span>: MRN000111222</div>
+    <div class="random"><span class="fancy-label">Insurance Company</span>: UnitedHealth Group</div>
+    <div class="random"><span class="fancy-label">Policy #</span>: POL-123456</div>
+    <div class="random"><span class="fancy-label">Group #</span>: GRP-7890</div>
+    <div class="random"><span class="fancy-label">Relationship</span>: Self</div>
+  </div>
+
+  <!-- Section 3: Nested containers, hidden fields, comments -->
+  <div class="section">
+    <div>
+      <div>
+        <span class="fancy-label">First Name:</span>
+        <span> Alice </span>
+        <span class="hidden">Should not see this</span>
+      </div>
+      <div>
+        <span class="fancy-label">Last Name:</span>
+        <span>Johnson</span>
+      </div>
+      <!-- Middle name is missing here on purpose -->
+      <div>
+        <span class="fancy-label">Date of Birth:</span>
+        <span>01/02/1980</span>
+      </div>
+      <div>
+        <span class="fancy-label">Gender:</span>
+        <span>F</span>
+      </div>
+      <div>
+        <span class="fancy-label">Phone Number:</span>
+        <span>555-987-6543</span>
+      </div>
+      <div>
+        <span class="fancy-label">Email:</span>
+        <span>alice.johnson@email.com</span>
+      </div>
+      <div>
+        <span class="fancy-label">Address:</span>
+        <span>789 Wacky Blvd, Springfield, IL 62704</span>
+      </div>
+      <div>
+        <span class="fancy-label">MRN:</span>
+        <span>MRN000111222</span>
+      </div>
+      <div>
+        <span class="fancy-label">SSN:</span>
+        <span>987-65-4321</span>
+      </div>
+      <div>
+        <span class="fancy-label">Insurance:</span>
+        <span>UnitedHealth Group</span>
+      </div>
+      <div>
+        <span class="fancy-label">Policy Number:</span>
+        <span>POL-123456</span>
+      </div>
+      <div>
+        <span class="fancy-label">Group Number:</span>
+        <span>GRP-7890</span>
+      </div>
+      <div>
+        <span class="fancy-label">Relationship:</span>
+        <span>Self</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Duplicates, inconsistent casing, extra whitespace -->
+  <div class="section">
+    <div>first name :    ALICE</div>
+    <div>LAST NAME: Johnson</div>
+    <div>dob: 01/02/1980</div>
+    <div>gender: FEMALE</div>
+    <div>phone: 5559876543</div>
+    <div>email: alice.johnson@email.com</div>
+    <div>address: 789 Wacky Blvd, Springfield, IL 62704</div>
+    <div>mrn: MRN000111222</div>
+    <div>ssn: 987-65-4321</div>
+    <div>insurance: UnitedHealth Group</div>
+    <div>policy number: POL-123456</div>
+    <div>group number: GRP-7890</div>
+    <div>relationship: Self</div>
+  </div>
+
+  <!-- Section 5: Comments and unrelated content -->
+  <div class="section">
+    <!-- This is a comment and should be ignored by the parser -->
+    <div>Unrelated Info: This should not be picked up</div>
+    <div>Another Field: Ignore this too</div>
+  </div>
+
+</body>
+</html> 

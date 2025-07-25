@@ -3,6 +3,9 @@ import { ExtensionMessage, ExtensionResponse } from '../types';
 import { AuditLogger } from '../security/audit/audit-logger';
 import { SimpleUniversalParser } from '../lib/simple-universal-parser';
 
+// Add at the top for debug
+console.log('[RadOrderPad] Content script loaded');
+
 class ContentScript {
   private isInitialized = false;
   private statusIndicator: HTMLElement | null = null;
@@ -358,6 +361,10 @@ class ContentScript {
     if (isEMRPage) {
       this.updateStatusIndicator('noData');
       AuditLogger.logSystem('EMR_PAGE_DETECTED', true);
+    } else {
+      console.log('[RadOrderPad] EMR detection failed: No known EMR patterns found on this page.');
+      // Optionally, send a message to the popup or background
+      window.postMessage({ type: 'RADORDERPAD_EMR_DETECTION', status: 'failed', reason: 'No known EMR patterns found' }, '*');
     }
   }
 

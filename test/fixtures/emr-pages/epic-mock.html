@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic EMR - Patient Information</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .patient-info { background: #fff5ee; padding: 20px; border-radius: 5px; }
+        .field { margin: 10px 0; }
+        label { font-weight: bold; display: inline-block; width: 120px; }
+        input, select { padding: 5px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Epic EMR System</h1>
+    <div class="patient-info">
+        <h2>Patient Information</h2>
+        
+        <div class="field">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" value="Michael" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="middleName">Middle Name:</label>
+            <input type="text" id="middleName" value="David" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" value="Brown" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="text" id="dateOfBirth" value="08/22/1978" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="gender">Gender:</label>
+            <select id="gender" disabled>
+                <option value="M" selected>Male</option>
+                <option value="F">Female</option>
+            </select>
+        </div>
+        
+        <div class="field">
+            <label for="addressLine1">Address Line 1:</label>
+            <input type="text" id="addressLine1" value="789 Pine Street" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="addressLine2">Address Line 2:</label>
+            <input type="text" id="addressLine2" value="Unit 15" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="city">City:</label>
+            <input type="text" id="city" value="Chicago" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="state">State:</label>
+            <input type="text" id="state" value="IL" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="zipCode">ZIP Code:</label>
+            <input type="text" id="zipCode" value="60601" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" value="(555) 456-7890" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="michael.brown@email.com" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="mrn">MRN:</label>
+            <input type="text" id="mrn" value="MRN456789123" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="ssn">SSN:</label>
+            <input type="text" id="ssn" value="456-78-9123" readonly>
+        </div>
+        
+        <div class="field">
+            <label for="insurance">Insurance:</label>
+            <input type="text" id="insurance" value="UnitedHealth Group" readonly>
+        </div>
+    </div>
+
+    <script>
+        // Mock chrome API for testing
+        window.chrome = {
+            runtime: {
+                getURL: (path) => `chrome-extension://test/${path}`
+            }
+        };
+    </script>
+</body>
+</html> 

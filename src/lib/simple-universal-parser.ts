@@ -56,8 +56,8 @@ export class SimpleUniversalParser {
       }
 
       // Extract and parse address
-      let addressValue = this.extractFieldByLabels(['Address', 'Street Address', 'Address Line 1', 'Home Address', 'Primary Address']);
-      let parsedAddress = addressValue ? this.parseAddress(addressValue) : null;
+      const addressValue = this.extractFieldByLabels(['Address', 'Street Address', 'Address Line 1', 'Home Address', 'Primary Address']);
+      const parsedAddress = addressValue ? this.parseAddress(addressValue) : null;
       // Fallback: try to extract address components separately if missing or incomplete
       if (!parsedAddress || !parsedAddress.city || !parsedAddress.state || !parsedAddress.zipCode) {
         const addressLine1 = this.extractFieldByLabels(['Address Line 1', 'Street Address', 'Address']) || (parsedAddress ? parsedAddress.addressLine1 : '');
@@ -265,21 +265,29 @@ export class SimpleUniversalParser {
   }
 
   /**
-   * Extract from info rows (div-based layouts)
+   * Extract from info rows (common in EMRs)
    */
   private extractFromInfoRows(labels: string[]): string | null {
-    const infoContainers = document.querySelectorAll('.info, .details, .patient-info, .demographics');
-    for (const container of Array.from(infoContainers)) {
-      const elements = container.querySelectorAll('div, span, p');
-      for (let i = 0; i < elements.length - 1; i++) {
-        const labelElement = elements[i];
-        const valueElement = elements[i + 1];
-        const labelText = labelElement.textContent?.trim().toLowerCase() || '';
-        
+    // Look for common info row patterns
+    const selectors = [
+      '.info-row',
+      '.detail-row',
+      '.patient-row',
+      '.field-row',
+      '[class*="info"]',
+      '[class*="detail"]'
+    ];
+
+    for (const selector of selectors) {
+      const elements = document.querySelectorAll(selector);
+      for (const element of Array.from(elements)) {
+        const text = element.textContent?.trim() || '';
         for (const label of labels) {
-          if (labelText.includes(label.toLowerCase())) {
-            const value = valueElement.textContent?.trim();
-            if (value && value !== labelText) {
+          const regex = new RegExp(`${label}\\s*:?\\s*([^\\n\\r]+)`, 'i');
+          const match = text.match(regex);
+          if (match && match[1]) {
+            const value = match[1].trim();
+            if (value && value !== label) {
               return value;
             }
           }
@@ -294,10 +302,10 @@ export class SimpleUniversalParser {
    */
   private parseAddress(addressString: string): { addressLine1: string; city: string; state: string; zipCode: string } | null {
     if (!addressString) return null;
-    
+
     // Simple regex-based address parsing
-    const addressRegex = /^(.+?)(?:,\s*)?([^,]+?)(?:,\s*)?([A-Z]{2})\s*(\d{5}(?:-\d{4})?)$/i;
-    const match = addressString.match(addressRegex);
+    const addressPattern = /^(.+?)(?:,\s*)?([^,]+?)(?:,\s*)?([A-Z]{2})\s*(\d{5}(?:-\d{4})?)$/i;
+    const match = addressString.match(addressPattern);
     
     if (match) {
       return {
@@ -308,22 +316,11 @@ export class SimpleUniversalParser {
       };
     }
     
-    // Fallback: try to extract components separately
-    const parts = addressString.split(',').map(part => part.trim());
-    if (parts.length >= 3) {
-      return {
-        addressLine1: parts[0],
-        city: parts[1],
-        state: parts[2].split(' ')[0],
-        zipCode: parts[2].split(' ')[1] || ''
-      };
-    }
-    
     return null;
   }
 
   /**
-   * Format field values based on field type
+   * Format field value based on field type
    */
   private formatFieldValue(field: string, value: string): string {
     switch (field) {
@@ -343,111 +340,121 @@ export class SimpleUniversalParser {
   /**
    * Normalize gender values
    */
-  private normalizeGender(gender: string): 'Male' | 'Female' | 'Other' {
+  private normalizeGender(gender: string): string {
+    if (!gender) return '';
+    
     const normalized = gender.toLowerCase().trim();
     
-    if (/^(m|male)$/.test(normalized)) {
-      return 'Male';
-    }
-    if (/^(f|female)$/.test(normalized)) {
-      return 'Female';
+    // Use safer string matching instead of regex
+    if (normalized.includes('male') || normalized.includes('m')) {
+      return 'M';
+    } else if (normalized.includes('female') || normalized.includes('f')) {
+      return 'F';
     }
     
-    return 'Other';
+    return '';
   }
 
   /**
    * Format phone number
    */
   private formatPhoneNumber(phone: string): string {
-    const cleaned = phone.replace(/\D/g, '');
-    if (cleaned.length === 10) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+    // Remove all non-digits
+    const digits = phone.replace(/\D/g, '');
+    
+    // Format as (XXX) XXX-XXXX
+    if (digits.length === 10) {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
     }
-    return phone;
+    
+    return phone.trim();
   }
 
   /**
    * Format date to MM/DD/YYYY
    */
   private formatDate(date: string): string {
-    // Handle various date formats and convert to MM/DD/YYYY
-    const dateRegex = /(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/;
-    const isoRegex = /(\d{4})-(\d{1,2})-(\d{1,2})/;
+    if (!date) return '';
     
-    let match = date.match(dateRegex);
-    if (match) {
-      const month = match[1].padStart(2, '0');
-      const day = match[2].padStart(2, '0');
-      const year = match[3];
-      return `${month}/${day}/${year}`;
+    // Remove any non-date characters
+    const cleanDate = date.replace(/[^\d\/\-]/g, '');
+    
+    // Try to parse common date formats
+    const dateFormats = [
+      /(\d{1,2})\/(\d{1,2})\/(\d{4})/, // MM/DD/YYYY
+      /(\d{4})-(\d{1,2})-(\d{1,2})/,   // YYYY-MM-DD
+      /(\d{1,2})-(\d{1,2})-(\d{4})/    // MM-DD-YYYY
+    ];
+    
+    for (const format of dateFormats) {
+      const match = cleanDate.match(format);
+      if (match) {
+        const [, month, day, year] = match;
+        return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`;
+      }
     }
     
-    match = date.match(isoRegex);
-    if (match) {
-      const year = match[1];
-      const month = match[2].padStart(2, '0');
-      const day = match[3].padStart(2, '0');
-      return `${month}/${day}/${year}`;
-    }
-    
-    return date;
+    return date.trim();
   }
 
   /**
    * Format SSN
    */
   private formatSSN(ssn: string): string {
-    const cleaned = ssn.replace(/\D/g, '');
-    if (cleaned.length === 9) {
-      return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 5)}-${cleaned.slice(5)}`;
+    // Remove all non-digits
+    const digits = ssn.replace(/\D/g, '');
+    
+    // Format as XXX-XX-XXXX
+    if (digits.length === 9) {
+      return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`;
     }
-    return ssn;
+    
+    return ssn.trim();
   }
 
   /**
-   * Format zip code
+   * Format ZIP code
    */
   private formatZipCode(zip: string): string {
-    const cleaned = zip.replace(/\D/g, '');
-    if (cleaned.length === 5) {
-      return cleaned;
-    } else if (cleaned.length === 9) {
-      return `${cleaned.slice(0, 5)}-${cleaned.slice(5)}`;
+    // Remove all non-digits
+    const digits = zip.replace(/\D/g, '');
+    
+    // Format as XXXXX or XXXXX-XXXX
+    if (digits.length === 5) {
+      return digits;
+    } else if (digits.length === 9) {
+      return `${digits.slice(0, 5)}-${digits.slice(5)}`;
     }
-    return zip;
+    
+    return zip.trim();
   }
 
   /**
    * Parse insurance data
    */
   private parseInsuranceData(): InsuranceData | null {
-    const insuranceLabels = ['Insurance', 'Insurance Company', 'Primary Insurance', 'Secondary Insurance'];
-    const hasInsurance = insuranceLabels.some(label => 
-      this.extractFieldByLabels([label]) !== null
-    );
-
-    if (!hasInsurance) {
-      return { hasInsurance: false };
+    const insuranceText = this.extractFieldByLabels(['Insurance', 'Insurance Company', 'Insurance Provider', 'Insurance Plan']);
+    
+    if (!insuranceText) {
+      return {
+        hasInsurance: false
+      };
     }
 
-    const primaryCompany = this.extractFieldByLabels(['Primary Insurance', 'Insurance Company', 'Insurance']);
-    const secondaryCompany = this.extractFieldByLabels(['Secondary Insurance', 'Secondary']);
-    const policyNumber = this.extractFieldByLabels(['Policy Number', 'Policy #', 'Member ID']);
-    const groupNumber = this.extractFieldByLabels(['Group Number', 'Group #', 'Group ID']);
-    const policyHolderName = this.extractFieldByLabels(['Policy Holder', 'Subscriber', 'Member Name']);
+    const policyNumber = this.extractFieldByLabels(['Policy Number', 'Policy #', 'Policy ID', 'Insurance Policy Number']) || '';
+    const groupNumber = this.extractFieldByLabels(['Group Number', 'Group #', 'Group ID', 'Insurance Group Number']) || '';
+    const policyHolderName = this.extractFieldByLabels(['Policy Holder', 'Subscriber', 'Member Name']) || '';
+    const relationship = this.extractFieldByLabels(['Relationship', 'Patient Relationship', 'Insured Relationship']) || 'Self';
 
     return {
       hasInsurance: true,
-      primary: primaryCompany ? {
-        company: primaryCompany,
-        policyNumber: policyNumber || '',
-        policyHolderName: policyHolderName || '',
-        relationshipToPatient: this.normalizeRelationship(this.extractFieldByLabels(['Relationship', 'Patient Relationship']) || 'Self')
-      } : undefined,
-      secondary: secondaryCompany ? {
-        company: secondaryCompany
-      } : undefined
+      primary: {
+        company: insuranceText,
+        policyNumber,
+        groupNumber,
+        policyHolderName,
+        relationshipToPatient: this.normalizeRelationship(relationship)
+      }
     };
   }
 
@@ -456,14 +463,20 @@ export class SimpleUniversalParser {
    */
   private normalizeRelationship(relationship: string): 'Self' | 'Spouse' | 'Child' | 'Other' {
     const normalized = relationship.toLowerCase().trim();
-    if (/^self|patient$/.test(normalized)) return 'Self';
-    if (/^spouse|wife|husband$/.test(normalized)) return 'Spouse';
-    if (/^child|son|daughter$/.test(normalized)) return 'Child';
+    
+    if (normalized.includes('self') || normalized.includes('patient')) {
+      return 'Self';
+    } else if (normalized.includes('spouse') || normalized.includes('wife') || normalized.includes('husband')) {
+      return 'Spouse';
+    } else if (normalized.includes('child') || normalized.includes('son') || normalized.includes('daughter')) {
+      return 'Child';
+    }
+    
     return 'Other';
   }
 
   /**
-   * Debug logging
+   * Log message if debug mode is enabled
    */
   private log(message: string): void {
     if (this.debugMode) {
