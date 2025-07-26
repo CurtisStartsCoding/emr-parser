@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModMed Extension - Complete Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c5aa0, #1e3a8a);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #2c5aa0;
+        }
+        .install-section {
+            background: #e7f3ff;
+        }
+        .test-section {
+            background: #f8f9fa;
+        }
+        .patient-section {
+            background: #f8f9fa;
+            margin-top: 20px;
+        }
+        .step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            position: relative;
+        }
+        .step-number {
+            background: #2c5aa0;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .step-content {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 50px);
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        .success-box {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #c3e6cb;
+            margin: 20px 0;
+        }
+        .field {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            width: 150px;
+            color: #333;
+        }
+        input, select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+        }
+        .section-title {
+            color: #2c5aa0;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 10px;
+        }
+        .big-button {
+            background: #2c5aa0;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .big-button:hover {
+            background: #1e3a8a;
+        }
+        .help-box {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #f5c6cb;
+            margin: 20px 0;
+        }
+        .toggle-section {
+            cursor: pointer;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .toggle-content {
+            display: none;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 ModMed Extension</h1>
+            <p>Complete Installation & Testing Guide</p>
+        </div>
+
+        <div class="content">
+            <!-- Installation Section -->
+            <div class="section install-section">
+                <div class="section-title">📋 Installation Steps</div>
+                
+                <div class="highlight">
+                    <strong>What this does:</strong> Automatically fills patient information from ModMed into forms. No more typing!
+                </div>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <div class="step-content">
+                        <strong>Get the Files</strong><br>
+                        Ask your IT person for a folder called "ModMed Extension"
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <div class="step-content">
+                        <strong>Open Chrome</strong><br>
+                        Click the Chrome icon on your computer
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <div class="step-content">
+                        <strong>Go to Extensions</strong><br>
+                        Copy this: <code>chrome://extensions/</code><br>
+                        Paste it in the address bar and press Enter
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <div class="step-content">
+                        <strong>Turn on Developer Mode</strong><br>
+                        Find the "Developer mode" switch (top-right)<br>
+                        Turn it ON (click it so it's blue)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <div class="step-content">
+                        <strong>Load the Extension</strong><br>
+                        Click "Load unpacked" button<br>
+                        Find your "ModMed Extension" folder<br>
+                        Click "Select Folder"
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Extension Installed!</strong><br>
+                    You should see a new icon in your Chrome toolbar (look for the puzzle piece 🧩)
+                </div>
+            </div>
+
+            <!-- Testing Section -->
+            <div class="section test-section">
+                <div class="section-title">🧪 Test the Extension</div>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <div class="step-content">
+                        <strong>Test with Sample Data</strong><br>
+                        The patient information below is for testing. Click the extension icon to see it work!
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <div class="step-content">
+                        <strong>Click the Extension</strong><br>
+                        Look for the extension icon in your toolbar<br>
+                        Click it, then click "Capture Patient Data"
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <div class="step-content">
+                        <strong>Check Results</strong><br>
+                        You should see patient information appear below
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>Expected Results:</strong><br>
+                    • Patient: Jennifer Marie Davis<br>
+                    • Phone: (312) 555-7890<br>
+                    • Insurance: Blue Cross Blue Shield
+                </div>
+            </div>
+
+            <!-- Patient Data Section -->
+            <div class="section patient-section">
+                <div class="section-title">👤 Test Patient Information</div>
+                
+                <div class="field">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" value="Jennifer" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="middleName">Middle Name:</label>
+                    <input type="text" id="middleName" value="Marie" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" value="Davis" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="dateOfBirth">Date of Birth:</label>
+                    <input type="text" id="dateOfBirth" value="07/14/1988" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" id="phoneNumber" value="(312) 555-7890" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" value="jennifer.davis@email.com" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="addressLine1">Address:</label>
+                    <input type="text" id="addressLine1" value="654 Maple Drive, Apt 3B, Chicago, IL 60601" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="insuranceCompany">Primary Insurance:</label>
+                    <input type="text" id="insuranceCompany" value="Blue Cross Blue Shield" readonly>
+                </div>
+                
+                <div class="field">
+                    <label for="insurancePolicyNumber">Policy Number:</label>
+                    <input type="text" id="insurancePolicyNumber" value="POL987654321" readonly>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="section">
+                <div class="section-title">🆘 Need Help?</div>
+                
+                <div class="toggle-section" onclick="toggleHelp('troubleshooting')">
+                    🔧 Troubleshooting
+                </div>
+                <div id="troubleshooting" class="toggle-content">
+                    <div class="help-box">
+                        <strong>Extension not showing?</strong><br>
+                        • Close Chrome completely<br>
+                        • Open Chrome again<br>
+                        • Try the steps again
+                    </div>
+                    
+                    <div class="help-box">
+                        <strong>Can't find the folder?</strong><br>
+                        • Ask your IT person for the "ModMed Extension" folder<br>
+                        • Make sure you select the folder, not individual files
+                    </div>
+                    
+                    <div class="help-box">
+                        <strong>Extension not working?</strong><br>
+                        • Make sure you're on a ModMed page<br>
+                        • Try refreshing the page<br>
+                        • Check if the extension icon is visible
+                    </div>
+                </div>
+
+                <div class="toggle-section" onclick="toggleHelp('using')">
+                    🎯 Using with Real ModMed
+                </div>
+                <div id="using" class="toggle-content">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <strong>Log into ModMed</strong><br>
+                            Open your ModMed EMR system
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <strong>Go to Patient Page</strong><br>
+                            Navigate to a patient's information page
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <strong>Click Extension</strong><br>
+                            Click the extension icon in your toolbar
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <strong>Capture Data</strong><br>
+                            Click "Capture Patient Data"
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <strong>✅ Done!</strong><br>
+                        The patient information will automatically fill into forms
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <strong>Still having trouble?</strong><br>
+                    Call your IT person and say: "I'm trying to install the ModMed extension but I'm stuck"
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleHelp(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('show');
+        }
+
+        // Listen for messages from the extension
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('message', function(event) {
+                if (event.data.type === 'EMR_DATA_CAPTURED') {
+                    alert('✅ Success! Extension is working correctly.');
+                } else if (event.data.type === 'EMR_DATA_ERROR') {
+                    alert('❌ Error: Extension not working. Please check installation.');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

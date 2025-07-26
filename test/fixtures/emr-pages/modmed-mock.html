@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModMed EMR - Patient Information</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .modmed-container { background: #f8f9fa; padding: 20px; border-radius: 5px; }
+        .modmed-patient-info { background: white; padding: 20px; border-radius: 5px; margin: 10px 0; }
+        .field { margin: 10px 0; }
+        label { font-weight: bold; display: inline-block; width: 120px; }
+        input, select { padding: 5px; margin-left: 10px; }
+        .detail-row { display: flex; margin: 5px 0; }
+        .detail-label { font-weight: bold; width: 150px; }
+        .detail-value { flex: 1; }
+    </style>
+</head>
+<body>
+    <div class="modmed-container" data-modmed="true">
+        <h1>ModMed EMR System</h1>
+        <div class="modmed-patient-info">
+            <h2>Patient Information</h2>
+            
+            <div class="field">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" value="Jennifer" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="middleName">Middle Name:</label>
+                <input type="text" id="middleName" value="Marie" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" value="Davis" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="text" id="dateOfBirth" value="07/14/1988" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="gender">Gender:</label>
+                <select id="gender" disabled>
+                    <option value="M">Male</option>
+                    <option value="F" selected>Female</option>
+                </select>
+            </div>
+            
+            <div class="field">
+                <label for="addressLine1">Address Line 1:</label>
+                <input type="text" id="addressLine1" value="654 Maple Drive" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="addressLine2">Address Line 2:</label>
+                <input type="text" id="addressLine2" value="Apt 3B" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="city">City:</label>
+                <input type="text" id="city" value="Chicago" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="state">State:</label>
+                <input type="text" id="state" value="IL" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="zipCode">Zip Code:</label>
+                <input type="text" id="zipCode" value="60601" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" value="(312) 555-7890" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="email">Email:</label>
+                <input type="text" id="email" value="jennifer.davis@email.com" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="mrn">Medical Record Number:</label>
+                <input type="text" id="mrn" value="MRN987654" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="ssn">Social Security Number:</label>
+                <input type="text" id="ssn" value="123-45-6789" readonly>
+            </div>
+        </div>
+        
+        <!-- Insurance Information Section -->
+        <div class="modmed-patient-info">
+            <h3>Insurance Information</h3>
+            
+            <div class="field">
+                <label for="insuranceCompany">Primary Insurance:</label>
+                <input type="text" id="insuranceCompany" value="Blue Cross Blue Shield" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePlanName">Plan Name:</label>
+                <input type="text" id="insurancePlanName" value="PPO Choice Plus" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePolicyNumber">Policy Number:</label>
+                <input type="text" id="insurancePolicyNumber" value="POL987654321" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insuranceGroupNumber">Group Number:</label>
+                <input type="text" id="insuranceGroupNumber" value="GRP123456" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePolicyHolder">Policy Holder:</label>
+                <input type="text" id="insurancePolicyHolder" value="Jennifer Davis" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insuranceRelationship">Relationship:</label>
+                <select id="insuranceRelationship" disabled>
+                    <option value="Self" selected>Self</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePolicyHolderDOB">Policy Holder DOB:</label>
+                <input type="text" id="insurancePolicyHolderDOB" value="07/14/1988" readonly>
+            </div>
+        </div>
+        
+        <!-- Secondary Insurance Section -->
+        <div class="modmed-patient-info">
+            <h3>Secondary Insurance</h3>
+            
+            <div class="field">
+                <label for="secondaryInsuranceCompany">Secondary Insurance:</label>
+                <input type="text" id="secondaryInsuranceCompany" value="Aetna" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="secondaryPolicyNumber">Secondary Policy Number:</label>
+                <input type="text" id="secondaryPolicyNumber" value="SEC123456789" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="secondaryGroupNumber">Secondary Group Number:</label>
+                <input type="text" id="secondaryGroupNumber" value="SECGRP789" readonly>
+            </div>
+        </div>
+        
+        <!-- Alternative layout with detail rows -->
+        <div class="modmed-patient-info">
+            <h3>Patient Demographics</h3>
+            <div class="detail-row">
+                <div class="detail-label">First Name:</div>
+                <div class="detail-value">Jennifer</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Last Name:</div>
+                <div class="detail-value">Davis</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Date of Birth:</div>
+                <div class="detail-value">07/14/1988</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Gender:</div>
+                <div class="detail-value">Female</div>
+            </div>
+        </div>
+        
+        <!-- Table layout -->
+        <div class="modmed-patient-info">
+            <h3>Contact Information</h3>
+            <table>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>(312) 555-7890</td>
+                </tr>
+                <tr>
+                    <th>Email Address</th>
+                    <td>jennifer.davis@email.com</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>654 Maple Drive, Apt 3B, Chicago, IL 60601</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,6 @@
+📋 INSTALLATION NOTE
+
+This extension requires the source code to be compiled before use.
+For a ready-to-use version, please contact your IT department.
+
+The files in this folder are for development/testing purposes.

@@ -1,0 +1,98 @@
+{
+  "manifest_version": 3,
+  "name": "RadOrderPad EMR Extension",
+  "version": "1.0.0",
+  "description": "HIPAA-compliant Chrome extension that captures patient data from EMR systems and auto-fills RadOrderPad forms",
+  
+  "permissions": [
+    "storage",
+    "activeTab",
+    "alarms",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "https://*.mychart.com/*",
+    "https://*.epic.com/*",
+    "https://*.cerner.com/*",
+    "https://*.athenahealth.com/*",
+    "https://*.eclinicalworks.com/*",
+    "https://*.nextgen.com/*",
+    "https://*.allscripts.com/*",
+    "https://*.radorderpad.com/*",
+    "https://localhost/*"
+  ],
+  
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.mychart.com/*",
+        "https://*.epic.com/*",
+        "https://*.cerner.com/*",
+        "https://*.athenahealth.com/*",
+        "https://*.eclinicalworks.com/*",
+        "https://*.nextgen.com/*",
+        "https://*.allscripts.com/*",
+        "https://*.radorderpad.com/*",
+        "https://localhost/*"
+      ],
+      "js": ["content/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "RadOrderPad EMR Extension",
+    "default_icon": {
+      "16": "assets/icons/icon-16.png",
+      "32": "assets/icons/icon-32.png",
+      "48": "assets/icons/icon-48.png",
+      "128": "assets/icons/icon-128.png"
+    }
+  },
+  
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/icons/*",
+        "popup/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  
+  "minimum_chrome_version": "88",
+  
+  "author": "RadOrderPad",
+  "homepage_url": "https://radorderpad.com",
+  
+  "short_name": "RadOrderPad",
+  
+  "offline_enabled": true,
+  
+  "incognito": "split",
+  
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  
+  "externally_connectable": {
+    "matches": [
+      "https://*.radorderpad.com/*"
+    ]
+  }
+} 

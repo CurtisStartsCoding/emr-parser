@@ -37,6 +37,11 @@ export class EMRStrategyManager {
       emrName = 'Onco';
       confidence = 0.8;
       indicators.push('onco');
+    } else if (url.includes('modmed') || title.includes('modmed') || bodyText.includes('modmed') || 
+               url.includes('modernizingmedicine') || title.includes('modernizing medicine')) {
+      emrName = 'ModMed';
+      confidence = 0.8;
+      indicators.push('modmed');
     }
 
     const result: EMRDetectionResult = {

@@ -352,7 +352,9 @@ class ContentScript {
       'athena',
       'eclinicalworks',
       'nextgen',
-      'allscripts'
+      'allscripts',
+      'modmed',
+      'modernizingmedicine'
     ];
 
     const pageText = document.body.innerText.toLowerCase();

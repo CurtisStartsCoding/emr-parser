@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModMed EMR - Test Patient Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #2c5aa0;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .patient-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2c5aa0;
+        }
+        .field {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            width: 150px;
+            color: #333;
+        }
+        input, select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+        }
+        .section-title {
+            color: #2c5aa0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 5px;
+        }
+        .test-instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2c5aa0;
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 ModMed EMR System</h1>
+            <p>Patient Information - Test Page</p>
+        </div>
+
+        <div class="test-instructions">
+            <h3>🧪 How to Test the Extension:</h3>
+            <ol>
+                <li>Make sure the EMR Parser extension is installed in Chrome</li>
+                <li>Click the extension icon in your toolbar (look for the puzzle piece 🧩 if you don't see it)</li>
+                <li>Click "Capture Patient Data"</li>
+                <li>You should see patient and insurance information extracted below</li>
+            </ol>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-title">👤 Patient Demographics</div>
+            
+            <div class="field">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" value="Jennifer" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="middleName">Middle Name:</label>
+                <input type="text" id="middleName" value="Marie" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" value="Davis" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="text" id="dateOfBirth" value="07/14/1988" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="gender">Gender:</label>
+                <select id="gender" disabled>
+                    <option value="M">Male</option>
+                    <option value="F" selected>Female</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-title">📞 Contact Information</div>
+            
+            <div class="field">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" value="(312) 555-7890" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="email">Email:</label>
+                <input type="text" id="email" value="jennifer.davis@email.com" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="addressLine1">Address Line 1:</label>
+                <input type="text" id="addressLine1" value="654 Maple Drive" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="addressLine2">Address Line 2:</label>
+                <input type="text" id="addressLine2" value="Apt 3B" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="city">City:</label>
+                <input type="text" id="city" value="Chicago" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="state">State:</label>
+                <input type="text" id="state" value="IL" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="zipCode">Zip Code:</label>
+                <input type="text" id="zipCode" value="60601" readonly>
+            </div>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-title">🏥 Medical Information</div>
+            
+            <div class="field">
+                <label for="mrn">Medical Record Number:</label>
+                <input type="text" id="mrn" value="MRN987654" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="ssn">Social Security Number:</label>
+                <input type="text" id="ssn" value="123-45-6789" readonly>
+            </div>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-title">📋 Primary Insurance</div>
+            
+            <div class="field">
+                <label for="insuranceCompany">Insurance Company:</label>
+                <input type="text" id="insuranceCompany" value="Blue Cross Blue Shield" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePlanName">Plan Name:</label>
+                <input type="text" id="insurancePlanName" value="PPO Choice Plus" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePolicyNumber">Policy Number:</label>
+                <input type="text" id="insurancePolicyNumber" value="POL987654321" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insuranceGroupNumber">Group Number:</label>
+                <input type="text" id="insuranceGroupNumber" value="GRP123456" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insurancePolicyHolder">Policy Holder:</label>
+                <input type="text" id="insurancePolicyHolder" value="Jennifer Davis" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="insuranceRelationship">Relationship:</label>
+                <select id="insuranceRelationship" disabled>
+                    <option value="Self" selected>Self</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="patient-section">
+            <div class="section-title">📋 Secondary Insurance</div>
+            
+            <div class="field">
+                <label for="secondaryInsuranceCompany">Secondary Insurance:</label>
+                <input type="text" id="secondaryInsuranceCompany" value="Aetna" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="secondaryPolicyNumber">Secondary Policy Number:</label>
+                <input type="text" id="secondaryPolicyNumber" value="SEC123456789" readonly>
+            </div>
+            
+            <div class="field">
+                <label for="secondaryGroupNumber">Secondary Group Number:</label>
+                <input type="text" id="secondaryGroupNumber" value="SECGRP789" readonly>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <h3>✅ Success!</h3>
+            <p>The extension successfully captured patient and insurance information. You should see the data appear in any form fields on this page or in RadOrderPad forms.</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <h3>❌ Error</h3>
+            <p>There was an issue capturing the data. Please make sure the extension is properly installed and try again.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+            <h3>🎯 Expected Results</h3>
+            <p>When you click the extension, it should capture:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li>Patient name: Jennifer Marie Davis</li>
+                <li>Date of birth: 07/14/1988</li>
+                <li>Phone: (312) 555-7890</li>
+                <li>Address: 654 Maple Drive, Apt 3B, Chicago, IL 60601</li>
+                <li>Primary Insurance: Blue Cross Blue Shield</li>
+                <li>Secondary Insurance: Aetna</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to show success/error messages
+        document.addEventListener('DOMContentLoaded', function() {
+            // Listen for messages from the extension
+            window.addEventListener('message', function(event) {
+                if (event.data.type === 'EMR_DATA_CAPTURED') {
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
+                } else if (event.data.type === 'EMR_DATA_ERROR') {
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

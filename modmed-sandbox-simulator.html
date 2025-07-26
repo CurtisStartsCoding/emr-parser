@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModMed EMR - Patient Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c5aa0, #1e3a8a);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .breadcrumb {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .user-info {
+            font-size: 14px;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .main-container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid #ddd;
+            padding: 20px 0;
+        }
+        .nav-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .nav-item:hover {
+            background: #f8f9fa;
+            border-left-color: #2c5aa0;
+        }
+        .nav-item.active {
+            background: #e7f3ff;
+            border-left-color: #2c5aa0;
+            color: #2c5aa0;
+            font-weight: bold;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .page-header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .patient-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .patient-avatar {
+            width: 60px;
+            height: 60px;
+            background: #2c5aa0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .patient-details h2 {
+            margin: 0 0 5px 0;
+            color: #2c5aa0;
+        }
+        .patient-meta {
+            color: #666;
+            font-size: 14px;
+        }
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #e7f3ff;
+            border-bottom-color: #2c5aa0;
+            color: #2c5aa0;
+            font-weight: bold;
+        }
+        .tab-content {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            background: white;
+        }
+        .section-title {
+            color: #2c5aa0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .insurance-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .insurance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .status-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .action-buttons {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .extension-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">🏥 ModMed</div>
+            <div class="breadcrumb">Patient Management > Patient Information</div>
+        </div>
+        <div class="header-right">
+            <div class="user-info">Dr. Smith | Dermatology Practice</div>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="nav-item active">📋 Dashboard</div>
+            <div class="nav-item">👥 Patients</div>
+            <div class="nav-item">📅 Appointments</div>
+            <div class="nav-item">💊 Medications</div>
+            <div class="nav-item">📊 Reports</div>
+            <div class="nav-item">⚙️ Settings</div>
+        </div>
+
+        <div class="content">
+            <div class="extension-notice">
+                <strong>🧪 Test Mode:</strong> This is a simulated ModMed environment for testing the EMR Parser extension. 
+                Click the extension icon in your toolbar to test data extraction.
+            </div>
+
+            <div class="page-header">
+                <div class="patient-info">
+                    <div class="patient-avatar">JD</div>
+                    <div class="patient-details">
+                        <h2>Jennifer Marie Davis</h2>
+                        <div class="patient-meta">
+                            DOB: 07/14/1988 | MRN: MRN987654 | Status: <span class="status-badge">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active">Demographics</div>
+                <div class="tab">Insurance</div>
+                <div class="tab">Medical History</div>
+                <div class="tab">Appointments</div>
+            </div>
+
+            <div class="tab-content">
+                <div class="section-title">Patient Demographics</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" value="Jennifer" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" value="Marie" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" value="Davis" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="text" id="dateOfBirth" value="07/14/1988" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" disabled>
+                            <option value="M">Male</option>
+                            <option value="F" selected>Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ssn">Social Security Number</label>
+                        <input type="text" id="ssn" value="123-45-6789" readonly>
+                    </div>
+                </div>
+
+                <div class="section-title">Contact Information</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" id="phoneNumber" value="(312) 555-7890" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="text" id="email" value="jennifer.davis@email.com" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine1">Address Line 1</label>
+                        <input type="text" id="addressLine1" value="654 Maple Drive" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine2">Address Line 2</label>
+                        <input type="text" id="addressLine2" value="Apt 3B" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" value="Chicago" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" value="IL" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code</label>
+                        <input type="text" id="zipCode" value="60601" readonly>
+                    </div>
+                </div>
+
+                <div class="insurance-section">
+                    <div class="section-title">Insurance Information</div>
+                    
+                    <div class="insurance-grid">
+                        <div class="form-group">
+                            <label for="insuranceCompany">Primary Insurance</label>
+                            <input type="text" id="insuranceCompany" value="Blue Cross Blue Shield" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insurancePlanName">Plan Name</label>
+                            <input type="text" id="insurancePlanName" value="PPO Choice Plus" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insurancePolicyNumber">Policy Number</label>
+                            <input type="text" id="insurancePolicyNumber" value="POL987654321" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insuranceGroupNumber">Group Number</label>
+                            <input type="text" id="insuranceGroupNumber" value="GRP123456" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insurancePolicyHolder">Policy Holder</label>
+                            <input type="text" id="insurancePolicyHolder" value="Jennifer Davis" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insuranceRelationship">Relationship</label>
+                            <select id="insuranceRelationship" disabled>
+                                <option value="Self" selected>Self</option>
+                                <option value="Spouse">Spouse</option>
+                                <option value="Child">Child</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-title" style="margin-top: 30px;">Secondary Insurance</div>
+                    
+                    <div class="insurance-grid">
+                        <div class="form-group">
+                            <label for="secondaryInsuranceCompany">Secondary Insurance</label>
+                            <input type="text" id="secondaryInsuranceCompany" value="Aetna" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="secondaryPolicyNumber">Secondary Policy Number</label>
+                            <input type="text" id="secondaryPolicyNumber" value="SEC123456789" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="secondaryGroupNumber">Secondary Group Number</label>
+                            <input type="text" id="secondaryGroupNumber" value="SECGRP789" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary">Save Changes</button>
+                    <button class="btn btn-secondary">Print Patient Summary</button>
+                    <button class="btn btn-secondary">Export Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Navigation functionality
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Listen for extension messages
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'EMR_DATA_CAPTURED') {
+                alert('✅ Success! Extension captured data from this ModMed-like interface.');
+            }
+        });
+    </script>
+</body>
+</html> 
